@@ -1,6 +1,7 @@
 const moment = require("moment");
 const consola = require("consola");
 const sql = require("mssql");
+const fetch = require("node-fetch");
 const { db } = require("../database/index");
 const { DB_CONFIG } = require("../config");
 const sqlConfig = {
@@ -48,7 +49,23 @@ async function onCreateBl() {
 
       console.log(response.recordset);
 
-      db.syncOnCreate.insert({ last_time: moment().format("YYYY-MM-DD") });
+      const init =
+        {
+          action: "update",
+          data: response.recordset,
+          data: latest_date,
+        } || {};
+
+      fetch("https://api.esavoo.com/automates/sics", {
+        method: "POST",
+        body: JSON.stringify(init),
+      })
+        .then(() => {
+          // If all are done
+
+          db.syncOnCreate.insert({ last_time: moment().format("YYYY-MM-DD") });
+        })
+        .catch((err) => {});
 
       request.on("done", (result) => {
         // Always emitted as the last one
