@@ -21,7 +21,10 @@ async function onCreateBl() {
   try {
     // make sure that any items are correctly URL encoded in the connection string
     await sql.connect(sqlConfig, async (err) => {
-      err ? console.log(err?.originalError) : "";
+      if (err) {
+        process.exit(1);
+        return false;
+      }
 
       var date = moment().add("0", "day");
       var current = moment(date).format("YYYY-MM-DD");
@@ -59,6 +62,7 @@ async function onCreateBl() {
     // ... error checks
 
     console.log("Error to connect", err);
+    process.exit(1);
   }
 }
 
