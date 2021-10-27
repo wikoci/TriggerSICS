@@ -65,7 +65,9 @@ async function onCreateBl() {
 
           db.syncOnCreate.insert({ last_time: moment().format("YYYY-MM-DD") });
         })
-        .catch((err) => {});
+        .catch((err) => {
+          console.log(err);
+        });
 
       request.on("done", (result) => {
         // Always emitted as the last one
