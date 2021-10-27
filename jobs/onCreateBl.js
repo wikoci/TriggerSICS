@@ -33,7 +33,7 @@ async function onCreateBl() {
           console.log(e);
         });
 
-      var latest_date = latestCron.last_time || current();
+      var latest_date = latestCron.last_time || current;
 
       const request = new sql.Request();
       //   request.stream = true // You can set streaming differently for each request
