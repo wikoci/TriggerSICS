@@ -47,14 +47,15 @@ async function onCreateBl() {
   from F_DOCLIGNE 
   where DO_Date > '${latest_date}'`); // or request.execute(procedure)
 
-      console.log(response.recordset);
-
       const init =
         {
           action: "update",
           data: response.recordset,
           data: latest_date,
         } || {};
+
+      console.log(latest_date, response.recordset.length);
+      //console.log(response.recordset);
 
       fetch("https://api.esavoo.com/automates/sics", {
         method: "POST",
@@ -85,4 +86,5 @@ async function onCreateBl() {
   }
 }
 
+console.log("Cron is running after 5min Trigger Oncreate");
 onCreateBl(); // Event on create entry
