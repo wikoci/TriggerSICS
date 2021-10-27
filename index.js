@@ -3,7 +3,7 @@ const consola = require("consola");
 const app = express();
 const Bree = require("bree");
 const path = require("path");
-globalThis.moment = require("moment");
+global.moment = require("moment");
 require("./database"); // Init database
 async function main() {
   const bree = new Bree({
@@ -11,7 +11,7 @@ async function main() {
       {
         name: "onCreateBl",
         interval: "30s",
-        timeout: false,
+        timeout: "1s",
       },
     ],
   });

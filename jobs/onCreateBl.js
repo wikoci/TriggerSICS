@@ -23,8 +23,8 @@ async function onCreateBl() {
     await sql.connect(sqlConfig, async (err) => {
       err ? console.log(err?.originalError) : "";
 
-      var date = moment().add("0", "day");
-      var current = moment(date).format("YYYY-MM-DD");
+      //var date = moment().add("0", "day");
+      var current = moment().toDate();
       var latestCron = db.syncOnCreate
         .findOne({}, { createdAt: 1, _id: 1, last_time: 1 })
         .sort({ createdAt: -1 })
@@ -33,6 +33,7 @@ async function onCreateBl() {
 
       var latest_date = latestCron.last_time || current;
 
+      console.log("Latest date: " + latest_date);
       const request = new sql.Request();
       //   request.stream = true // You can set streaming differently for each request
       var response = await request.query(`
@@ -40,7 +41,7 @@ async function onCreateBl() {
   from F_DOCLIGNE 
   where DO_Date > '${latest_date}'`); // or request.execute(procedure)
 
-      console.log(response);
+      // console.log(response);
 
       db.syncOnCreate.insert({ last_time: moment().toDate() });
 
