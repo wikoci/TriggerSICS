@@ -59,4 +59,4 @@ async function onCreateBl() {
   }
 }
 
-//onCreateBl(); // Event on create entry
+onCreateBl(); // Event on create entry
