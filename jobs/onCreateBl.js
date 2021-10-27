@@ -2,11 +2,9 @@ const moment = require("moment");
 const consola = require("consola");
 const sql = require("mssql");
 const { db } = require("../database/index");
+const { DB_CONFIG } = require("../config");
 const sqlConfig = {
-  user: "",
-  password: "",
-  database: "",
-  server: "",
+  ...DB_CONFIG,
   pool: {
     max: 10,
     min: 0,
@@ -27,14 +25,22 @@ async function onCreateBl() {
 
       var date = moment().add("0", "day");
       var current = moment(date).format("YYYY-MM-DD");
-      console.log(current);
+      var latestCron = db.syncOnCreate
+        .findOne({})
+        .sort({ createdAt: 1 })
+        .limit(1)
+        .then((e) => {
+          console.log(e);
+        });
+
+      var latest_date = latestCron.last_time || current();
 
       const request = new sql.Request();
       //   request.stream = true // You can set streaming differently for each request
       var response = await request.query(`
  select CT_Num as code_client,do_piece as code_bl,ar_ref as code_article,dl_qte,dl_poidsnet,dl_montantht,dl_montantttc,do_Date,cbmodification 
   from F_DOCLIGNE 
-  where DO_Date > '${current}'`); // or request.execute(procedure)
+  where DO_Date > '${latest_date}'`); // or request.execute(procedure)
 
       console.log(response);
 
@@ -54,10 +60,3 @@ async function onCreateBl() {
 }
 
 onCreateBl(); // Event on create entry
-var latestDate = db.syncOnCreate
-  .find({})
-  .sort({ createdAt: 1 })
-  .limit(1)
-  .then((e) => {
-    console.log(e);
-  });
