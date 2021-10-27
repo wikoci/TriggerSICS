@@ -44,6 +44,8 @@ async function onCreateBl() {
 
       console.log(response);
 
+      db.syncOnCreate.insert({ last_time: moment() });
+
       request.on("done", (result) => {
         // Always emitted as the last one
 
