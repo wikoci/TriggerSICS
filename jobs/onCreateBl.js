@@ -53,7 +53,7 @@ async function onCreateBl() {
   }
 }
 
-console.log("Check new Bl created");
+onCreateBl(); // Event on create entry
 var latestDate = db.syncOnCreate
   .find({})
   .sort({ createdAt: 1 })
