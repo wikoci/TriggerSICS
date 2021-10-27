@@ -26,12 +26,10 @@ async function onCreateBl() {
       var date = moment().add("0", "day");
       var current = moment(date).format("YYYY-MM-DD");
       var latestCron = db.syncOnCreate
-        .findOne({})
-        .sort({ createdAt: 1 })
+        .findOne({}, { createdAt: 1, _id: 1, last_time: 1 })
+        .sort({ createdAt: -1 })
         .limit(1)
-        .then((e) => {
-          console.log(e);
-        });
+        .then((e) => e);
 
       var latest_date = latestCron.last_time || current;
 
@@ -44,7 +42,7 @@ async function onCreateBl() {
 
       console.log(response);
 
-      db.syncOnCreate.insert({ last_time: moment() });
+      db.syncOnCreate.insert({ last_time: moment().toDate() });
 
       request.on("done", (result) => {
         // Always emitted as the last one
@@ -61,4 +59,4 @@ async function onCreateBl() {
   }
 }
 
-onCreateBl(); // Event on create entry
+//onCreateBl(); // Event on create entry

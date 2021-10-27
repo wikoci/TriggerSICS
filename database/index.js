@@ -1,5 +1,5 @@
 const Datastore = require("nedb-promises");
-
+const moment = require("moment");
 const db = {};
 db.syncOnCreate = new Datastore({
   name: "OnCreate",
@@ -16,13 +16,5 @@ db.syncOnupdate = new Datastore({
 });
 
 consola.success(" DataBase initialize ", db.syncOnCreate);
-
-db.syncOnCreate
-  .findOne({}, { createdAt: 1, _id: 1, last_time: 1 })
-  .sort({ createdAt: 1 })
-  .limit(1)
-  .then((e) => {
-    console.log(e);
-  });
 
 module.exports = { db };
