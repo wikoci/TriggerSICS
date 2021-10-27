@@ -11,6 +11,7 @@ async function main() {
       {
         name: "onCreateBl",
         interval: "30s",
+        timeout: false,
       },
     ],
   });
