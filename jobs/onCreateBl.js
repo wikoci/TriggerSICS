@@ -23,8 +23,8 @@ async function onCreateBl() {
     await sql.connect(sqlConfig, async (err) => {
       err ? console.log(err?.originalError) : "";
 
-      //var date = moment().add("0", "day");
-      var current = moment().toDate();
+      var date = moment().add("0", "day");
+      var current = moment(date).format("YYYY-MM-DD");
       var latestCron = db.syncOnCreate
         .findOne({}, { createdAt: 1, _id: 1, last_time: 1 })
         .sort({ createdAt: -1 })
@@ -32,6 +32,8 @@ async function onCreateBl() {
         .then((e) => e);
 
       var latest_date = latestCron.last_time || current;
+
+      latest_date = moment(latest_date).format("YYYY-MM-DD");
 
       console.log("Latest date: " + latest_date);
       const request = new sql.Request();
@@ -43,7 +45,7 @@ async function onCreateBl() {
 
       // console.log(response);
 
-      db.syncOnCreate.insert({ last_time: moment().toDate() });
+      db.syncOnCreate.insert({ last_time: moment().format("YYYY-MM-DD") });
 
       request.on("done", (result) => {
         // Always emitted as the last one
