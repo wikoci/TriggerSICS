@@ -1,0 +1,23 @@
+{
+  "name": "trigger-e-savoo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bree": "^6.3.1",
+    "consola": "^2.15.3",
+    "express": "^4.17.1",
+    "moment": "^2.29.1",
+    "mssql": "^7.2.1",
+    "nedb": "^1.8.0",
+    "nedb-promise": "^2.0.1",
+    "nedb-promises": "^5.0.1",
+    "path": "^0.12.7",
+    "pouchdb": "^7.2.2"
+  }
+}
