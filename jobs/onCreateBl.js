@@ -37,7 +37,7 @@ async function onCreateBl() {
 
       var latest_date = latestCron.last_time || current;
 
-      latest_date = moment(latest_date).format("YYYY-MM-DD");
+      latest_date = moment(latest_date).format("YYYY-MM-DD hh:mm:ss");
 
       console.log("Latest date: " + latest_date);
       const request = new sql.Request();
@@ -63,7 +63,6 @@ async function onCreateBl() {
       })
         .then(() => {
           // If all are done
-
           db.syncOnCreate.insert({ last_time: moment().format("YYYY-MM-DD") });
         })
         .catch((err) => {
