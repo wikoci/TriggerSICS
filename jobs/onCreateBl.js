@@ -35,6 +35,8 @@ async function onCreateBl() {
         .limit(1)
         .then((e) => e);
 
+      console.log("Latser Cron", latestCron);
+
       var latest_date = latestCron.last_time || current;
 
       latest_date = moment(latest_date).format("YYYY-MM-DD hh:mm:ss");
