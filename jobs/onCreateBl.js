@@ -49,6 +49,8 @@ async function onCreateBl() {
   from F_DOCLIGNE 
   where DO_Date > '${latest_date}'`); // or request.execute(procedure)
 
+      console.log(response);
+
       const init =
         {
           action: "update",
