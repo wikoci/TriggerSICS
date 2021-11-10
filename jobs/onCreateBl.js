@@ -1,6 +1,7 @@
 const moment = require("moment");
 const consola = require("consola");
 const sql = require("mssql");
+const fs = require("fs");
 const fetch = require("node-fetch");
 const { db } = require("../database/index");
 const { DB_CONFIG } = require("../config");
@@ -59,6 +60,8 @@ async function onCreateBl() {
         } || {};
 
       console.log(latest_date, response.recordset.length);
+
+      fs.writeFileSync(__dirname + "bl.json", response.recordset);
       //console.log(response.recordset);
 
       fetch("https://api.esavoo.com/automates/sics", {
