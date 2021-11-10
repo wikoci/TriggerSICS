@@ -8,12 +8,12 @@ global.moment = require("moment");
 require("./database"); // Init database
 async function main() {
   const bree = new Bree({
-    interval: "1m",
+    interval: "30s",
     jobs: [
       {
         name: "onCreateBl",
         // interval: "30s",
-        timeout: false,
+        // timeout: false,
       },
     ],
     errorHandler: (error, workerMetadata) => {

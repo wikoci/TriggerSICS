@@ -61,7 +61,7 @@ async function onCreateBl() {
 
       console.log(latest_date, response.recordset.length);
 
-      fs.writeFileSync(__dirname + "bl.json", response.recordset);
+      fs.writeFileSync(__dirname + "bl.json", response.recordset + "", "utf8");
       //console.log(response.recordset);
 
       fetch("https://api.esavoo.com/automates/sics", {
