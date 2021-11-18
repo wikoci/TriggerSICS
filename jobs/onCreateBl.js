@@ -46,9 +46,10 @@ async function onCreateBl() {
       const request = new sql.Request();
       //   request.stream = true // You can set streaming differently for each request
       var response = await request.query(`
- select CT_Num as code_client,do_piece as code_bl,ar_ref as code_article,dl_qte,dl_ligne,dl_poidsnet,dl_montantht,dl_montantttc,do_Date,cbmodification 
+ select CT_Num as code_client,do_piece as code_bl,ar_ref as code_article,dl_qte,dl_ligne,dl_poidsnet,
+ dl_montantht,dl_montantttc,do_Date,cbmodification 
   from F_DOCLIGNE 
-  where DO_Date > '${latest_date}'`); // or request.execute(procedure)
+  where DO_Date > '${latest_date}' and do_type in (1,3)`); // or request.execute(procedure)
 
       console.log(response);
 
