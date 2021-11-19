@@ -53,7 +53,7 @@ async function onCreateBl() {
   and do_type in (1,3) 
   and f_comptet.co_no >= 42 
 and f_comptet.co_no not in ('46','47')
-and ct_intitule like 'VDR%'
+
   
   `); // or request.execute(procedure)
 
