@@ -30,7 +30,7 @@ async function onCreateBl() {
 
       var date = moment().add("0", "day");
       var current = moment(date).format("YYYY-MM-DD hh:mm:ss");
-      var latestCron = db.syncOnCreate
+      var latestCron = await db.syncOnCreate
         .findOne({}, { createdAt: 1, _id: 1, last_time: 1 })
         .sort({ createdAt: -1 })
         .limit(1)
